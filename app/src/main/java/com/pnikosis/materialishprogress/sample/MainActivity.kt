@@ -1,222 +1,178 @@
-package com.pnikosis.materialishprogress.sample;
+package com.pnikosis.materialishprogress.sample
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.graphics.Color;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.RadioButton;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.app.AlertDialog
+import android.graphics.Color
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.Button
+import android.widget.Spinner
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.pnikosis.materialishprogress.ProgressWheel
 
-import com.pnikosis.materialishprogress.ProgressWheel;
-
-import java.text.DecimalFormat;
-
-
-public class MainActivity extends ActionBarActivity {
-
-    private ProgressWheel progressWheel;
-    private ProgressWheel progressWheelInterpolated;
-    private ProgressWheel progressWheelLinear;
-
-    private TextView interpolatedValue;
-    private TextView linearValue;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Button buttonAbout = (Button) findViewById(R.id.button_about);
-        buttonAbout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this)
-                        .setTitle(R.string.about)
-                        .setMessage(R.string.about_text)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-
-                dialog.show();
-            }
-        });
-
-        progressWheel = (ProgressWheel) findViewById(R.id.progress_wheel);
-        progressWheelInterpolated = (ProgressWheel) findViewById(R.id.interpolated);
-        progressWheelLinear = (ProgressWheel) findViewById(R.id.linear);
-
-        interpolatedValue = (TextView) findViewById(R.id.interpolatedValue);
-        linearValue = (TextView) findViewById(R.id.linearValue);
-
-        Spinner spinnerOptions = (Spinner) findViewById(R.id.spinner_options);
-        spinnerOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch(position) {
-                    case 0:
-                        progressWheelLinear.setProgress(0.0f);
-                        progressWheelInterpolated.setProgress(0.0f);
-
-                        progressWheelInterpolated.setCallback(new ProgressWheel.ProgressCallback() {
-                            @Override
-                            public void onProgressUpdate(float progress) {
-                                if(progress == 0) {
-                                    progressWheelInterpolated.setProgress(1.0f);
-                                } else if(progress == 1.0f) {
-                                    progressWheelInterpolated.setProgress(0.0f);
+class MainActivity : AppCompatActivity() {
+    private var progressWheel: ProgressWheel? = null
+    private var progressWheelInterpolated: ProgressWheel? = null
+    private var progressWheelLinear: ProgressWheel? = null
+    private var interpolatedValue: TextView? = null
+    private var linearValue: TextView? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val buttonAbout = findViewById<View>(R.id.button_about) as Button
+        buttonAbout.setOnClickListener {
+            val dialog = AlertDialog.Builder(this@MainActivity)
+                .setTitle(R.string.about)
+                .setMessage(R.string.about_text)
+                .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
+            dialog.show()
+        }
+        progressWheel = findViewById<View>(R.id.progress_wheel) as ProgressWheel
+        progressWheelInterpolated = findViewById<View>(R.id.interpolated) as ProgressWheel
+        progressWheelLinear = findViewById<View>(R.id.linear) as ProgressWheel
+        interpolatedValue = findViewById<View>(R.id.interpolatedValue) as TextView
+        linearValue = findViewById<View>(R.id.linearValue) as TextView
+        val spinnerOptions = findViewById<View>(R.id.spinner_options) as Spinner
+        spinnerOptions.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                when (position) {
+                    0 -> {
+                        progressWheelLinear!!.progress = 0.0f
+                        progressWheelInterpolated!!.progress = 0.0f
+                        progressWheelInterpolated!!.setCallback(object :
+                            ProgressWheel.ProgressCallback {
+                            override fun onProgressUpdate(progress: Float) {
+                                if (progress == 0f) {
+                                    progressWheelInterpolated!!.progress = 1.0f
+                                } else if (progress == 1.0f) {
+                                    progressWheelInterpolated!!.progress = 0.0f
                                 }
-
-                                interpolatedValue.setText(String.format("%.2f", progress));
+                                interpolatedValue!!.text = String.format("%.2f", progress)
                             }
-                        });
+                        })
 
-                        progressWheelLinear.setCallback(new ProgressWheel.ProgressCallback() {
-                            @Override
-                            public void onProgressUpdate(float progress) {
-                                if(progress == 0) {
-                                    progressWheelLinear.setProgress(1.0f);
-                                } else if(progress == 1.0f) {
-                                    progressWheelLinear.setProgress(0.0f);
+                        progressWheelLinear!!.setCallback(object :
+                            ProgressWheel.ProgressCallback {
+                            override fun onProgressUpdate(progress: Float) {
+                                if (progress == 0f) {
+                                    progressWheelLinear!!.progress = 1.0f
+                                } else if (progress == 1.0f) {
+                                    progressWheelLinear!!.progress = 0.0f
                                 }
-
-                                linearValue.setText(String.format("%.2f", progress));
+                                linearValue!!.text = String.format("%.2f", progress)
                             }
-                        });
-                        break;
-                    case 1:
-                        setProgress(0.0f);
-                        break;
-                    case 2:
-                        setProgress(0.1f);
-                        break;
-                    case 3:
-                        setProgress(0.25f);
-                        break;
-                    case 4:
-                        setProgress(0.5f);
-                        break;
-                    case 5:
-                        setProgress(0.75f);
-                        break;
-                    case 6:
-                        setProgress(1.0f);
-                        break;
+                        })
+                    }
+                    1 -> setProgress(0.0f)
+                    2 -> setProgress(0.1f)
+                    3 -> setProgress(0.25f)
+                    4 -> setProgress(0.5f)
+                    5 -> setProgress(0.75f)
+                    6 -> setProgress(1.0f)
                 }
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        final int defaultBarColor = progressWheel.getBarColor();
-        final int defaultWheelColor = progressWheel.getRimColor();
-
-        Spinner colorOptions = (Spinner) findViewById(R.id.spinner_options_color);
-        colorOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch(position) {
-                    case 0:
-                        progressWheel.setBarColor(defaultBarColor);
-                        progressWheelInterpolated.setBarColor(defaultBarColor);
-                        progressWheelLinear.setBarColor(defaultBarColor);
-                        break;
-                    case 1:
-                        progressWheel.setBarColor(Color.RED);
-                        progressWheelInterpolated.setBarColor(Color.RED);
-                        progressWheelLinear.setBarColor(Color.RED);
-                        break;
-                    case 2:
-                        progressWheel.setBarColor(Color.MAGENTA);
-                        progressWheelInterpolated.setBarColor(Color.MAGENTA);
-                        progressWheelLinear.setBarColor(Color.MAGENTA);
-                        break;
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        val defaultBarColor = progressWheel!!.getBarColor()
+        val defaultWheelColor = progressWheel!!.getRimColor()
+        val colorOptions = findViewById<View>(R.id.spinner_options_color) as Spinner
+        colorOptions.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                when (position) {
+                    0 -> {
+                        progressWheel!!.setBarColor(defaultBarColor)
+                        progressWheelInterpolated!!.setBarColor(defaultBarColor)
+                        progressWheelLinear!!.setBarColor(defaultBarColor)
+                    }
+                    1 -> {
+                        progressWheel!!.setBarColor(Color.RED)
+                        progressWheelInterpolated!!.setBarColor(Color.RED)
+                        progressWheelLinear!!.setBarColor(Color.RED)
+                    }
+                    2 -> {
+                        progressWheel!!.setBarColor(Color.MAGENTA)
+                        progressWheelInterpolated!!.setBarColor(Color.MAGENTA)
+                        progressWheelLinear!!.setBarColor(Color.MAGENTA)
+                    }
                 }
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        Spinner wheelColorOptions = (Spinner) findViewById(R.id.spinner_options_rim_color);
-        wheelColorOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch(position) {
-                    case 0:
-                        progressWheel.setRimColor(defaultWheelColor);
-                        progressWheelInterpolated.setRimColor(defaultWheelColor);
-                        progressWheelLinear.setRimColor(defaultWheelColor);
-                        break;
-                    case 1:
-                        progressWheel.setRimColor(Color.LTGRAY);
-                        progressWheelInterpolated.setRimColor(Color.LTGRAY);
-                        progressWheelLinear.setRimColor(Color.LTGRAY);
-                        break;
-                    case 2:
-                        progressWheel.setRimColor(Color.GRAY);
-                        progressWheelInterpolated.setRimColor(Color.GRAY);
-                        progressWheelLinear.setRimColor(Color.GRAY);
-                        break;
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        val wheelColorOptions = findViewById<View>(R.id.spinner_options_rim_color) as Spinner
+        wheelColorOptions.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                when (position) {
+                    0 -> {
+                        progressWheel!!.setRimColor(defaultWheelColor)
+                        progressWheelInterpolated!!.setRimColor(defaultWheelColor)
+                        progressWheelLinear!!.setRimColor(defaultWheelColor)
+                    }
+                    1 -> {
+                        progressWheel!!.setRimColor(Color.LTGRAY)
+                        progressWheelInterpolated!!.setRimColor(Color.LTGRAY)
+                        progressWheelLinear!!.setRimColor(Color.LTGRAY)
+                    }
+                    2 -> {
+                        progressWheel!!.setRimColor(Color.GRAY)
+                        progressWheelInterpolated!!.setRimColor(Color.GRAY)
+                        progressWheelLinear!!.setRimColor(Color.GRAY)
+                    }
                 }
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
     }
 
-    private void setProgress(float progress) {
-        progressWheelLinear.setCallback(new ProgressWheel.ProgressCallback() {
-            @Override
-            public void onProgressUpdate(float progress) {
-                linearValue.setText(String.format("%.2f", progress));
+    private fun setProgress(progress: Float) {
+        progressWheelLinear!!.setCallback(object :
+            ProgressWheel.ProgressCallback {
+            override fun onProgressUpdate(progress: Float) {
+                linearValue!!.text = String.format("%.2f", progress)
             }
-        });
-        progressWheelInterpolated.setCallback(new ProgressWheel.ProgressCallback() {
-            @Override
-            public void onProgressUpdate(float progress) {
-                interpolatedValue.setText(String.format("%.2f", progress));
+        })
+        progressWheelInterpolated!!.setCallback(object :
+            ProgressWheel.ProgressCallback {
+            override fun onProgressUpdate(progress: Float) {
+                interpolatedValue!!.text = String.format("%.2f", progress)
             }
-        });
-
-        progressWheelLinear.setProgress(progress);
-        progressWheelInterpolated.setProgress(progress);
+        })
+        progressWheelLinear!!.progress = progress
+        progressWheelInterpolated!!.progress = progress
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-
-
-        return super.onOptionsItemSelected(item);
+//        val id = item.itemId
+        return super.onOptionsItemSelected(item)
     }
 }
