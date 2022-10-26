@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 30
 
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 32
+        minSdkVersion 21
+        targetSdkVersion 30
     }
 }
 
 dependencies {
-    implementation "androidx.core:core-ktx:1.8.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.core:core-ktx:1.6.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0"
 }
