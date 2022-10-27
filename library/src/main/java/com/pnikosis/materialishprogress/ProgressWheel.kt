@@ -1,19 +1,18 @@
 package com.pnikosis.materialishprogress
 
-import android.graphics.RectF
-import android.annotation.TargetApi
 import android.content.Context
-import android.os.Build
 import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.util.TypedValue
-import android.os.Parcelable
+import android.graphics.RectF
+import android.os.Build
 import android.os.Parcel
+import android.os.Parcelable
 import android.os.Parcelable.Creator
 import android.os.SystemClock
 import android.provider.Settings
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.View
 
 /**
@@ -92,10 +91,9 @@ class ProgressWheel : View {
         setAnimationEnabled()
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private fun setAnimationEnabled() {
         val currentApiVersion = Build.VERSION.SDK_INT
-        val animationValue: Float = if (currentApiVersion >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        val animationValue: Float = if (currentApiVersion >= Build.VERSION_CODES.O) {
             Settings.Global.getFloat(
                 context.contentResolver,
                 Settings.Global.ANIMATOR_DURATION_SCALE, 1f
@@ -120,11 +118,9 @@ class ProgressWheel : View {
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
-        val width: Int
-        val height: Int
 
         //Measure Width
-        width = if (widthMode == MeasureSpec.EXACTLY) {
+        val width: Int = if (widthMode == MeasureSpec.EXACTLY) {
             //Must be this size
             widthSize
         } else if (widthMode == MeasureSpec.AT_MOST) {
@@ -136,7 +132,7 @@ class ProgressWheel : View {
         }
 
         //Measure Height
-        height = if (heightMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.EXACTLY) {
+        val height: Int = if (heightMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.EXACTLY) {
             //Must be this size
             heightSize
         } else if (heightMode == MeasureSpec.AT_MOST) {
