@@ -10,7 +10,7 @@ android {
     compileSdkVersion 30
     defaultConfig {
         applicationId "com.pnikosis.materialishprogress.sample"
-        minSdkVersion 23
+        minSdkVersion 28
         //noinspection OldTargetApi
         targetSdkVersion 30
         versionCode 1
