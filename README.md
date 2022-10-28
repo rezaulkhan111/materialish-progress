@@ -1,4 +1,4 @@
-[![](https://img.shields.io/badge/Methods and size-106 | 12 KB-e91e63.svg)](http://www.methodscount.com/?lib=com.pnikosis%3Amaterialish-progress%3A1.7)
+[![](https://jitpack.io/v/rezaulkhan111/materialish-progress.svg)](https://jitpack.io/#rezaulkhan111/materialish-progress)
 
 # Material-ish Progress
 
@@ -25,6 +25,21 @@ You can also have a linear determinate progress mode if you don't like the anima
 You can copy the ProgressWheel.java (in the library module) and the attrs.xml content into your project. Or you can get the binaries from Maven central by adding in your build.gradle dependencies:
 
 ```implementation 'com.pnikosis:materialish-progress:1.7'```
+
+Or Add the JitPack repository to your build file
+
+     allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+        
+dependencies
+
+     dependencies {
+	        implementation 'com.github.rezaulkhan111:materialish-progress:Tag'
+     }
 
 ## Usage
 
