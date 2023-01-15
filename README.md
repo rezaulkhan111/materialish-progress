@@ -38,7 +38,7 @@ Or Add the JitPack repository to your build file
 dependencies
 
      dependencies {
-	        implementation 'com.github.rezaulkhan111:materialish-progress:Tag'
+	        implementation 'com.github.rezaulkhan111:materialish-progress-ktx:Tag'
      }
 
 ## Usage
