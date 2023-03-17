@@ -1,12 +1,8 @@
-[![](https://img.shields.io/badge/Methods and size-106 | 12 KB-e91e63.svg)](http://www.methodscount.com/?lib=com.pnikosis%3Amaterialish-progress%3A1.7)
+[![](https://jitpack.io/v/rezaulkhan111/materialish-progress.svg)](https://jitpack.io/#rezaulkhan111/materialish-progress)
 
 # Material-ish Progress
 
 A material style progress wheel compatible with 2.3
-
-Try the demo app on Google Play:
-
-[![Get it on Google Play](https://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=com.pnikosis.materialishprogress.sample)
 
 I needed to keep a consistent (or as close as possible) look in an app across all Android Versions. The progress wheel is quite cool in Lollipop, and pretty horrible on Gingerbread.
 
@@ -28,7 +24,22 @@ You can also have a linear determinate progress mode if you don't like the anima
 
 You can copy the ProgressWheel.java (in the library module) and the attrs.xml content into your project. Or you can get the binaries from Maven central by adding in your build.gradle dependencies:
 
-```compile 'com.pnikosis:materialish-progress:1.7'```
+```implementation 'com.pnikosis:materialish-progress:1.7'```
+
+Or Add the JitPack repository to your build file
+
+     allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+        
+dependencies
+
+     dependencies {
+	        implementation 'com.github.rezaulkhan111:materialish-progress-ktx:Tag'
+     }
 
 ## Usage
 
