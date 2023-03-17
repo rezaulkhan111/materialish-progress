@@ -3,24 +3,21 @@ package com.pnikosis.materialishprogress.sample;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.pnikosis.materialishprogress.ProgressWheel;
 
-import java.text.DecimalFormat;
 
-
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     private ProgressWheel progressWheel;
     private ProgressWheel progressWheelInterpolated;
@@ -38,15 +35,12 @@ public class MainActivity extends ActionBarActivity {
         buttonAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this)
-                        .setTitle(R.string.about)
-                        .setMessage(R.string.about_text)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this).setTitle(R.string.about).setMessage(R.string.about_text).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
 
                 dialog.show();
             }
@@ -63,7 +57,7 @@ public class MainActivity extends ActionBarActivity {
         spinnerOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch(position) {
+                switch (position) {
                     case 0:
                         progressWheelLinear.setProgress(0.0f);
                         progressWheelInterpolated.setProgress(0.0f);
@@ -71,9 +65,9 @@ public class MainActivity extends ActionBarActivity {
                         progressWheelInterpolated.setCallback(new ProgressWheel.ProgressCallback() {
                             @Override
                             public void onProgressUpdate(float progress) {
-                                if(progress == 0) {
+                                if (progress == 0) {
                                     progressWheelInterpolated.setProgress(1.0f);
-                                } else if(progress == 1.0f) {
+                                } else if (progress == 1.0f) {
                                     progressWheelInterpolated.setProgress(0.0f);
                                 }
 
@@ -84,9 +78,9 @@ public class MainActivity extends ActionBarActivity {
                         progressWheelLinear.setCallback(new ProgressWheel.ProgressCallback() {
                             @Override
                             public void onProgressUpdate(float progress) {
-                                if(progress == 0) {
+                                if (progress == 0) {
                                     progressWheelLinear.setProgress(1.0f);
-                                } else if(progress == 1.0f) {
+                                } else if (progress == 1.0f) {
                                     progressWheelLinear.setProgress(0.0f);
                                 }
 
@@ -128,7 +122,7 @@ public class MainActivity extends ActionBarActivity {
         colorOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch(position) {
+                switch (position) {
                     case 0:
                         progressWheel.setBarColor(defaultBarColor);
                         progressWheelInterpolated.setBarColor(defaultBarColor);
@@ -157,7 +151,7 @@ public class MainActivity extends ActionBarActivity {
         wheelColorOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch(position) {
+                switch (position) {
                     case 0:
                         progressWheel.setRimColor(defaultWheelColor);
                         progressWheelInterpolated.setRimColor(defaultWheelColor);
@@ -214,7 +208,6 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
 
 
         return super.onOptionsItemSelected(item);

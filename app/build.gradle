@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "21.1.2"
-
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.pnikosis.materialishprogress.sample"
-        minSdkVersion 9
-        targetSdkVersion 22
+        minSdkVersion 19
+        //noinspection OldTargetApi
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
     }
@@ -17,10 +16,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.0.0'
-    compile project(':library')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation project(':library')
 }
