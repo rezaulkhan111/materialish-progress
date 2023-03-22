@@ -2,19 +2,20 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
 android {
-    compileSdk 33
+    compileSdkVersion 32
     defaultConfig {
-        minSdk 19
-        targetSdk 33
+        minSdkVersion 19
+        //noinspection OldTargetApi
+        targetSdkVersion 31
         versionCode 5
         versionName "1.4"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+//    buildTypes {
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
+//    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -22,14 +23,14 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'androidx.core:core:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
 }
 afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-                from components.release
+//                from components.release
                 groupId = "com.pnikosis.materialishprogress"
                 artifactId = "material-progressSDK"
                 version = "1.0.0"
