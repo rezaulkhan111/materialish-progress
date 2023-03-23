@@ -24,8 +24,8 @@ afterEvaluate {
             release(MavenPublication) {
 //                from components.release
                 groupId = "com.pnikosis.materialishprogress"
-                artifactId = "material-progressSDK"
-                version = "1.0.0"
+                artifactId = "material-progressSDK-java"
+                version = "2.0.0"
             }
         }
     }
