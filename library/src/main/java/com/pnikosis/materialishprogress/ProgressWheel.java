@@ -1,6 +1,5 @@
 package com.pnikosis.materialishprogress;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -93,7 +92,6 @@ public class ProgressWheel extends View {
         setAnimationEnabled();
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void setAnimationEnabled() {
         int currentApiVersion = android.os.Build.VERSION.SDK_INT;
 
